@@ -3,6 +3,6 @@ function [sortedVectors, sortedValues] = princomp(data)
   normData = center(data);
   covMat = cov(normData);
   [eigVectors, eigValues] = eig(covMat);
-  [sortedValues, order] = sort(diag(D), 'descend');
-  sortedVectors = eigVectors(:, i);
+  [sortedValues, order] = sort(diag(eigValues), 'descend');
+  sortedVectors = eigVectors(:,order);
 endfunction
