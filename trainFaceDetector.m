@@ -1,7 +1,7 @@
 #!/usr/bin/octave -qf
 
 if (nargin != 1)
-  usage("train_face_detector <num_patterns>\n");
+  usage("trainFaceDetector.m <num_patterns>\n");
 endif
 
 arg_list = argv();
@@ -23,14 +23,14 @@ nV = zeros(nRegions, nPatterns);
 M  = zeros(nRegions, nPositions, nPatterns);
 
 nxRegions = nyRegions = sqrt(nRegions);
-nxPixels = nyPixels = floor(sqrt(DimFaces)) / nxRegions;
-
+nPixelsPerRow = nPixelsPerRow
+nPixelsPerRegion = floor(nPixelsPerRow / nxRegions);
 regionsData = [];
 for i = 1:nData
   for x = 1:nxRegions
     for y = 1:nyRegions
-    curRegion = getRegionFromData(allData(i), x, y)
-    regionsData = [regionsData;
+    curRegion = getRegionFromImage(allData(i),x,y,nPixelsPerRegion,nPixelsPerRow);
+    regionsData = [regionsData; curRegion];
   end
 end
 
