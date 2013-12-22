@@ -25,6 +25,7 @@ M  = zeros(nRegions, nPositions, nPatterns);
 nxRegions = nyRegions = sqrt(nRegions);
 nPixelsPerRow = nPixelsPerRow
 nPixelsPerRegion = floor(nPixelsPerRow / nxRegions);
+
 regionsData = [];
 for i = 1:nData
   for x = 1:nxRegions
@@ -34,11 +35,17 @@ for i = 1:nData
   end
 end
 
+[vectors values] = princomp(regionsData);
+vectors = vectors(1:nPositions);
+
+reducedDimData = [];
+% Loop for getting reduced data
+
 for i = 1:nFaces
   for j = 1:nRegions
-    % Reducir dimension de la region
+    % Reduce dimensions from region
     for k = 1:nPositions
-      % curPattern = patron que asigna kmeans
+      % curPattern = pattern assigned by kmeans
       V(j,curPattern)++;
       M(j,k,curPattern)++;
     end
