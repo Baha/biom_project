@@ -1,5 +1,6 @@
 # Data files
 *.norm
+*.dat
 
 # Backup files
 *.swp

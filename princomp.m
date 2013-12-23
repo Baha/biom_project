@@ -1,5 +1,4 @@
 function [sortedVectors newData sortedValues] = princomp(data,nDimensions)
-  % Not needed, but just in case
   normData = center(data);
   covMat = cov(normData);
   [eigVectors eigValues] = eig(covMat);

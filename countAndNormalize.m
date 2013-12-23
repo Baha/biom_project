@@ -19,9 +19,6 @@ function [V nV M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patter
     end
   end
 
-  sumV = sum(V);
-  sumnV = sum(nV);
-
   V = V / sum(V);
   nV = nV / sum(nV);
   for i = 1:nPatterns
