@@ -1,4 +1,4 @@
-function createDataFiles(transVectors,centroids,V,nV,M);
+function createDataFiles(transVectors,centroids,V,nV,M)
   rmdir("config","s");
   mkdir("config");
   dlmwrite("config/transVec.dat",transVectors,","); 
