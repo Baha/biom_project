@@ -23,45 +23,45 @@ nV = zeros(nRegions, nPatterns);
 M  = zeros(nRegions, nPositions, nPatterns);
 
 nxRegions = nyRegions = sqrt(nRegions);
-nPixelsPerRow = nPixelsPerRow
+nPixelsPerRow = sqrt(dimFaces);
 nPixelsPerRegion = floor(nPixelsPerRow / nxRegions);
+
+%[nxRegions nPixelsPerRow nPixelsPerRegion]
 
 regionsData = [];
 for i = 1:nData
-  for x = 1:nxRegions
-    for y = 1:nyRegions
-    curRegion = getRegionFromImage(allData(i),x,y,nPixelsPerRegion,nPixelsPerRow);
-    regionsData = [regionsData; curRegion];
-  end
-end
-
-[vectors values] = princomp(regionsData);
-vectors = vectors(1:nPositions);
-
-reducedDimData = [];
-% Loop for getting reduced data
-
-for i = 1:nFaces
-  for j = 1:nRegions
-    % Reduce dimensions from region
-    for k = 1:nPositions
-      % curPattern = pattern assigned by kmeans
-      V(j,curPattern)++;
-      M(j,k,curPattern)++;
+  for y = 1:nyRegions
+    for x = 1:nxRegions
+      curRegion = getRegionFromImage(allData(i,:),x,y,nPixelsPerRegion,nPixelsPerRow);
+      regionsData = [regionsData; curRegion];
     end
   end
 end
 
-for i = 1:nNotFaces
-  for j = 1:nRegions
-    nV(j,curPattern)++;
-  end
-end
+[ans reducedData ans] = princomp(regionsData,nPositions);
+[assignedData ans] = kmeans(reducedData,nPatterns);
 
-for i = 1:nRegions
-  V(i,:) = V(i,:) / sum(nV(i,:);
-  nV(i,:) = nV(i,:) / sum(nV(i,:);
-  for j = 1:nPatterns
-    M(i,j,:) = M(i,j,:) / sum(M(i,j,:));
-  end
-end
+%for i = 1:nFaces
+%  for j = 1:nRegions
+%    % Reduce dimensions from region
+%    for k = 1:nPositions
+%      % curPattern = pattern assigned by kmeans
+%      V(j,curPattern)++;
+%      M(j,k,curPattern)++;
+%    end
+%  end
+%end
+%
+%for i = 1:nNotFaces
+%  for j = 1:nRegions
+%    nV(j,curPattern)++;
+%  end
+%end
+%
+%for i = 1:nRegions
+%  V(i,:) = V(i,:) / sum(nV(i,:));
+%  nV(i,:) = nV(i,:) / sum(nV(i,:));
+%  for j = 1:nPatterns
+%    M(i,j,:) = M(i,j,:) / sum(M(i,j,:));
+%  end
+%end
