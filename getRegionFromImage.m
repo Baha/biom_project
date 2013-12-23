@@ -1,9 +1,9 @@
 function [regionData] = getRegionFromImage(image,xRegion,yRegion,regionLength,rowLength)
   regionData = [];
-  curPixel = xRegion * regionLength + yRegion * regionLength * rowLength;
+  curPixel = (xRegion - 1) * regionLength + (yRegion - 1) * regionLength * rowLength + 1;
   for i = 1:regionLength
-    regionRow = image(curPixel:(curPixel + regionLength));
+    regionRow = image(curPixel:(curPixel + regionLength - 1));
     regionData = [regionData regionRow];
-    curPixel += rowLength
+    curPixel += rowLength;
   end
 endfunction
