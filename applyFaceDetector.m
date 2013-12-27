@@ -24,13 +24,13 @@ end
 
 [nRegions nDimensions nPatterns transVectors centroids V nV M] = loadModel();
 
-for j = 1:2:maxOffset(2)
-  for i = 1:2:maxOffset(1)
-    imageWindow = grayscaleImage(i:(i+windowLength-1),j:(j+windowLength-1));
-    score = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windowLength,transVectors,centroids,V,nV,M)
+for j = 1:5:maxOffset(2)
+  for i = 1:5:maxOffset(1)
+    imageWindow = normImage(i:(i+windowLength-1),j:(j+windowLength-1));
+    score = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windowLength,transVectors,centroids,V,nV,M);
     if (score > threshold)
-      taggedImage = tagFaceOnImage(taggedImage,i,j);
-    endif
+      taggedImage = tagFaceOnImage(taggedImage,i,j,windowLength);
+    end
   end
 end
-%imwrite(grayscaleImage, "gris.jpg", "jpg");
+imwrite(taggedImage, "tagged.jpg", "jpg");
