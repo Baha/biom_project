@@ -22,6 +22,7 @@ function [score] = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windo
         end
       end
       score *= (M(regionIndex,curPattern) * V(curPattern)) / ((1.0/nRegions) * nV(curPattern));
+      regionIndex++;
     end
   end
 endfunction
