@@ -22,6 +22,11 @@ function [V nV M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patter
   V = V / sum(V);
   nV = nV / sum(nV);
   for i = 1:nPatterns
-    M(:,i) = M(:,i) / sum(M(:,i));
+    sumCol = sum(M(:,i));
+    if (sumCol <= 0.0)
+      M(:,i) = 0;
+    else
+      M(:,i) = M(:,i) / sumCol;
+    end
   end
 endfunction
