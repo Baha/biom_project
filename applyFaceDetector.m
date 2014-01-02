@@ -1,32 +1,25 @@
-#!/usr/bin/octave -qf
+function applyFaceDetector(imageFileName, threshold)
+    windowLength = 21;
 
-if (nargin != 2)
-  usage("applyFaceDetector.m <image_file> <threshold>\n");
-endif
+    originalImage = imread(imageFileName);
+    grayscaleImage = double(rgb2gray(originalImage));
+    taggedImage = originalImage;
 
-arg_list = argv();
-imageFileName = arg_list{1};
-threshold = str2double(arg_list{2});
-windowLength = 21;
+    maxOffset = size(grayscaleImage) - windowLength;
+    imageMean = mean2(grayscaleImage);
+    imageStd = std2(grayscaleImage);
+    normImage = (grayscaleImage - imageMean) / imageStd;
 
-originalImage = imread(imageFileName);
-[image map] = rgb2ind(originalImage);
-grayscaleImage = ind2gray(image,map);
-taggedImage = originalImage;
+    [nRegions, nPatterns, transVectors, centroids, V, nV, M] = loadModel();
 
-maxOffset = size(grayscaleImage) - windowLength;
-imageStd = std(vec(grayscaleImage));
-normImage = center(grayscaleImage) / imageStd;
-
-[nRegions nDimensions nPatterns transVectors centroids V nV M] = loadModel();
-
-for j = 1:4:maxOffset(2)
-  for i = 1:4:maxOffset(1)
-    imageWindow = normImage(i:(i+windowLength-1),j:(j+windowLength-1));
-    score = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windowLength,transVectors,centroids,V,nV,M);
-    if (score > threshold)
-      taggedImage = tagFaceOnImage(taggedImage,i,j,windowLength);
+    for j = 1:4:maxOffset(2)
+      for i = 1:4:maxOffset(1)
+        imageWindow = normImage(i:(i+windowLength-1),j:(j+windowLength-1));
+        score = computeScore(imageWindow,nRegions,nPatterns,windowLength,transVectors,centroids,V,nV,M);
+        if (score > threshold)
+          taggedImage = tagFaceOnImage(taggedImage,i,j,windowLength);
+        end
+      end
     end
-  end
+    imwrite(taggedImage, 'tagged.jpg', 'jpg');
 end
-imwrite(taggedImage, "tagged.jpg", "jpg");

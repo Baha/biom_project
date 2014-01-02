@@ -1,4 +1,4 @@
-function [V nV M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patterns)
+function [V, nV, M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patterns)
   V  = zeros(nPatterns);
   nV = zeros(nPatterns);
   M  = zeros(nRegions, nPatterns);
@@ -6,16 +6,16 @@ function [V nV M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patter
   curRegion = 1;
   for i = 1:nFaces
     for j = 1:nRegions
-      V(patterns(curRegion))++;
-      M(j,patterns(curRegion))++;
-      curRegion++;
+      V(patterns(curRegion)) = V(patterns(curRegion)) + 1;
+      M(j,patterns(curRegion)) = M(j,patterns(curRegion))+ 1;
+      curRegion = curRegion + 1;
     end
   end
 
   for i = 1:nNotFaces
     for j = 1:nRegions
-      nV(patterns(curRegion))++;
-      curRegion++;
+      nV(patterns(curRegion)) = nV(patterns(curRegion)) + 1;
+      curRegion = curRegion + 1;
     end
   end
 
@@ -29,4 +29,4 @@ function [V nV M] = countAndNormalize(nFaces,nNotFaces,nRegions,nPatterns,patter
       M(:,i) = M(:,i) / sumCol;
     end
   end
-endfunction
+end

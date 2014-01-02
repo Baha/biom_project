@@ -1,5 +1,6 @@
 function [regionsData] = fragmentImages(data,nData,dimData,nRegions)
-  nxRegions = nyRegions = sqrt(nRegions);
+  nxRegions = sqrt(nRegions);
+  nyRegions = nxRegions;
   nPixelsPerRow = sqrt(dimData);
   nPixelsPerRegion = floor(nPixelsPerRow / nxRegions);
 
@@ -12,4 +13,4 @@ function [regionsData] = fragmentImages(data,nData,dimData,nRegions)
       end
     end
   end
-endfunction
+end

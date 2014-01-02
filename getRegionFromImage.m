@@ -4,6 +4,6 @@ function [regionData] = getRegionFromImage(image,xRegion,yRegion,regionLength,ro
   for i = 1:regionLength
     regionRow = image(curPixel:(curPixel + regionLength - 1));
     regionData = [regionData regionRow];
-    curPixel += rowLength;
+    curPixel = curPixel + rowLength;
   end
-endfunction
+end
