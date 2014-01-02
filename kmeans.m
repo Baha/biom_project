@@ -60,5 +60,5 @@ while cent_diff > 0.0
     end
   end
 
-  cent_diff = sum(sum((centroids - oldCentroids).^2));
+  cent_diff = sum(sum((centroids - oldCentroids).^2))
 end

@@ -15,15 +15,15 @@ grayscaleImage = ind2gray(image,map);
 taggedImage = originalImage;
 
 maxOffset = size(grayscaleImage) - windowLength;
-imageStd = std(vec(grayscaleImage))
+imageStd = std(vec(grayscaleImage));
 normImage = center(grayscaleImage) / imageStd;
 
 [nRegions nDimensions nPatterns transVectors centroids V nV M] = loadModel();
 
-for j = 1:5:maxOffset(2)
-  for i = 1:5:maxOffset(1)
+for j = 1:4:maxOffset(2)
+  for i = 1:4:maxOffset(1)
     imageWindow = normImage(i:(i+windowLength-1),j:(j+windowLength-1));
-    score = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windowLength,transVectors,centroids,V,nV,M)
+    score = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windowLength,transVectors,centroids,V,nV,M);
     if (score > threshold)
       taggedImage = tagFaceOnImage(taggedImage,i,j,windowLength);
     end

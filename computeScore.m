@@ -5,6 +5,7 @@ function [score] = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windo
 
   regionIndex = 1;
   score = 1.0;  
+
   for y = 1:nyRegions
     for x = 1:nxRegions
       curRegion = getRegionFromImage(imageWindow',x,y,nPixelsPerRegion,nPixelsPerRow);
@@ -21,7 +22,11 @@ function [score] = computeScore(imageWindow,nRegions,nDimensions,nPatterns,windo
           min_dist = dist;
         end
       end
-      score *= (M(regionIndex,curPattern) * V(curPattern)) / ((1.0/nRegions) * nV(curPattern));
+      if (nV(curPattern) <= 0.0)
+        score = 0.0;
+      else
+        score *= (M(regionIndex,curPattern) * V(curPattern)) / ((1.0/nRegions) * nV(curPattern))
+      end
       regionIndex++;
     end
   end
