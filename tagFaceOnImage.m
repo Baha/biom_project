@@ -1,8 +1,10 @@
-function [newImage] = tagFaceOnImage(oldImage,xStart,yStart,windowLength)
+function [newImage] = tagFaceOnImage(oldImage,scaleFactor,xStart,xEnd,yStart,yEnd)
   newImage = oldImage;
-  xEnd = xStart + windowLength - 1;
-  yEnd = yStart + windowLength - 1;
-
+  xStart = floor(xStart / scaleFactor);
+  xEnd = floor(xEnd / scaleFactor);
+  yStart = floor(yStart / scaleFactor);
+  yEnd = floor(yEnd / scaleFactor);
+  
   for x = xStart:xEnd
     newImage(x,yStart,:) = [0 255 0];
     newImage(x,yEnd,:) = [0 255 0];

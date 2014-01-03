@@ -1,7 +1,9 @@
 # Data files
 *.norm
-*.dat
+*.gz
 *.jpg
+*.png
 
 # Backup files
 *.swp
+*.asv

@@ -23,11 +23,11 @@ function [score] = computeScore(imageWindow,nRegions,nPatterns,windowLength,tran
           min_dist = dist;
         end
       end
-      if (nV(curPattern) <= 0.0)
-        score = 0.0;
-      else
-        score = score * (M(regionIndex,curPattern) * V(curPattern)) / ((1.0/nRegions) * nV(curPattern));
-      end
+%       if (nV(curPattern) <= 0.0)
+%         score = 0.0;
+%       else
+         score = score * (M(regionIndex,curPattern) * V(curPattern)) / ((1.0/nRegions) * nV(curPattern));
+%       end
       regionIndex = regionIndex + 1;
     end
   end
