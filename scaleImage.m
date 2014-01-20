@@ -6,19 +6,20 @@ function [normImage, pixelShift, maxX, maxY] = scaleImage(image,scaleFactor)
         imageMean = mean2(image);
         imageStd = std2(image);
         normImage = (image - imageMean) / imageStd;
-        if (maxY > 1024)
-            pixelShift = 32;
-        else if (maxY > 512)
+        
+        if (maxY >= 512)
             pixelShift = 16;
-            else if (maxY > 256)
-                    pixelShift = 8;
-                else if (maxY > 128)
-                        pixelShift = 4;
-                    else
-                        pixelShift = 2;
-                    end
-                end
-            end
+            return;
         end
+        if (maxY >= 256)
+            pixelShift = 8;
+            return;
+        end
+        
+        if (maxY >= 128)
+            pixelShift = 4;
+            return;
+        end
+        pixelShift = 2;
 end
 
