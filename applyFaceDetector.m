@@ -28,6 +28,6 @@ function applyFaceDetector(imageFileName, threshold)
         scale = scale * scaleFactor;
     end
     [path, imageName, ext] = fileparts(imageFileName);
-    newImageFileName = strcat(path, imageName,'_tagged',ext);
+    newImageFileName = strcat(path,'/',imageName,'_tagged',ext);
     imwrite(taggedImage, newImageFileName);
 end
