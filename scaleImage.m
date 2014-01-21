@@ -1,12 +1,14 @@
 function [normImage, pixelShift, maxX, maxY] = scaleImage(image,scaleFactor)
-    if (scaleFactor <= 1.0)
+		% Resize image
         image = imresize(image, scaleFactor);
-    end
+
+		% Normalize image
         [maxX, maxY] = size(image);
         imageMean = mean2(image);
         imageStd = std2(image);
         normImage = (image - imageMean) / imageStd;
         
+		% Return an adequate pixelShift value (for sliding window)
         if (maxY >= 512)
             pixelShift = 16;
             return;

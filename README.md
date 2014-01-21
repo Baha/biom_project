@@ -10,7 +10,6 @@ optimized version if that's what you're looking for.
 The main functions allow you to:
 
 1. Train a face detector, given a number of patterns.
-
 2. Apply the trained face detector to an image, given
 the name of that image and threshold.
 
