@@ -1,17 +1,16 @@
 function applyFaceDetector(imageFileName, threshold)
     windowLength = 21;
     scaleFactor = 0.9;
-    
+    scale = 1.0;
+
     originalImage = imread(imageFileName);
     grayscaleImage = double(rgb2gray(originalImage));
+    [height, ~, ~] = size(originalImage);
     taggedImage = originalImage;
     [nRegions, nPatterns, transVectors, centroids, V, nV, M] = loadModel();
-    [width, height] = size(originalImage);
     
-    if (height >= 500)
-        scale = 500/height;
-    else
-        scale = 1.0;
+    if (height > 128)
+        scale = 128/height;
     end
     
     for s = 1:10
@@ -28,6 +27,10 @@ function applyFaceDetector(imageFileName, threshold)
         scale = scale * scaleFactor;
     end
     [path, imageName, ext] = fileparts(imageFileName);
-    newImageFileName = strcat(path,'/',imageName,'_tagged',ext);
+    if (strcmp(path,''))
+        newImageFileName = strcat(imageName,'_tagged',ext);
+    else
+        newImageFileName = strcat(path,'/',imageName,'_tagged',ext);
+    end
     imwrite(taggedImage, newImageFileName);
 end
